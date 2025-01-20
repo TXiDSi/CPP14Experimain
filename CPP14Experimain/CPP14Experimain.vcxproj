@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="template\DefineTemplate.h" />
     <ClInclude Include="template\TemplateArgDeduction.h" />
+    <ClInclude Include="template\VariadicTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
