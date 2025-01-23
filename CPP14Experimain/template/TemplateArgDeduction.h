@@ -61,16 +61,17 @@ void deduTest(T &&t)
 * 比如使用右值模板参数时，其对象本质还是左值，但是可以用forward获取其右值
 */
 //接受右值的转发测试函数
-void g(int&& t)
+void g(int& t)
 {
+	t = 10;
 	cout << t << endl;
 }
 //模板函数
 template<typename T>
 void forwardFunc(T&& t)
 {
-	//g(t);		//错误的，即使传入右值但是t本质是左值
-	g(std::forward<T>(t));	//正确
+	g(t);		//错误的，即使传入右值但是t本质是左值
+	//g(std::forward<T>(t));	//正确
 }
 
 
@@ -91,7 +92,14 @@ int main()
 	cout << dedui << endl;		//输出6
 
 	//forward测试
+	int forTest= 5;
 	forwardFunc(5);
 
+	//右值引用绑定左值引用测试
+	int && rif = 5;				//这里的结论会比较反常识，右值引用为右值拓展了其生命周期
+	int& lif = rif;				//被拓展生命周期的对象就可以被作为左值处理
+	cout << lif << endl;
+	cout<< &lif << endl;
+	cout<< &rif << endl;
 
 }
